@@ -12,7 +12,7 @@ build a feature pyramid (featurized image pyramid), enabling detection across a 
 a featurized image pyramid representation due to its memory and time complexity. In this paper, we introduce a light-weight architecture to
 efficiently produce featurized image pyramid in a single-stage detection framework.
 
-*Note*: The speed here is tested on the Pytorch 0.3.1, Python 3+ and Cuda9.0.
+*Note*: The speed here is tested on the Pytorch 0.3, Python 3+ and Cuda9.0.
 
 
 ### Contents
