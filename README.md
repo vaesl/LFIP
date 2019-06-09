@@ -2,7 +2,7 @@
 
 By Yanwei Pang†, Tiancai Wang†, Rao Muhammad Anwer, Fahad Shahbaz Khan, Ling Shao
 
-*†* denotes equal contribution
+† denotes equal contribution
 
 ### Introduction
 Single-stage object detectors have recently gained popularity due to their combined advantage of high detection accuracy and real-time speed.
