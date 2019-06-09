@@ -12,8 +12,6 @@ build a feature pyramid (featurized image pyramid), enabling detection across a 
 a featurized image pyramid representation due to its memory and time complexity. In this paper, we introduce a light-weight architecture to
 efficiently produce featurized image pyramid in a single-stage detection framework.
 
-*Note*: The speed here is tested on the Pytorch 0.3.1, Python 3.5.6 and Cuda9.0.
-
 ## Installation
 - Clone this repository. This repository is mainly based on [ssd.pytorch](https://github.com/amdegroot/ssd.pytorch).
 
@@ -22,7 +20,8 @@ LFIP_ROOT=/path/to/clone/LFIP
 git clone https://github.com/vaesl/LFIP $LFIP_ROOT
 ```
 
-- Install [PyTorch-0.3.1](http://pytorch.org/) by the following commands with Anaconda environment.
+- Install [PyTorch-0.3.1](http://pytorch.org/) by the following commands with Anaconda environment. 
+Note that he speed here is tested on the Pytorch 0.3.1, Python 3.5.6 and Cuda9.0.
 
 ```Shell
 conda create -n LFIP python=3.5
@@ -41,16 +40,15 @@ conda install pytorch=0.3.1 torchvision -c pytorch
 conda install opencv
 ```
 
-- Compile the nms and coco tools:
+- Compile the COCOAPI and NMS tools:
 ```Shell
 ./make.sh
 ```
 
 ## Download
-To evaluate the performance reported in the paper, you need to first download the Pascal VOC and COCO dataset as well as
-our trained models.
+To evaluate the performance reported in the paper, Pascal VOC and COCO dataset as well as our trained models need to be downloaded.
 
-### VOC Dataset
+### Pascal VOC Dataset
 ##### Download VOC2007 trainval & test
 
 ```Shell
@@ -72,15 +70,16 @@ $COCO/
 $COCO/cache/
 $COCO/annotations/
 $COCO/images/
-$COCO/images/test2015/
 $COCO/images/train2014/
 $COCO/images/val2014/
+$COCO/images/test2015/
 ```
 
 ### Trained Models
 
-* PASCAL VOC [BaiduYun Driver](https://pan.baidu.com/)
-* COCO [BaiduYun Driver](https://pan.baidu.com/)
+Please access to [BaiduYun Driver](https://pan.baidu.com/s/1F0pqYmA8wJUED_jV8xmFNw) to obtain the trained models for 
+PASCAL VOC and COCO and put the weights into corresponding directory. Note that the extraction code is jay3.
+
 
 ## Evaluation
 To evaluate the performance reported in the CVPR paper:
@@ -95,7 +94,7 @@ python test_LFIP.py -d VOC -s 300 --trained_model /path/to/model/weights
 
 By default, it will directly output the mAP results on VOC2007 *test* or COCO *minival2014*. For COCO *test-dev* results, you can manually change the datasets in the `test_LFIP.py` file, then save the detection results and submitted to the server. 
 
-### Citation
+## Citation
 Please cite our paper in your publications if it helps your research:
 
     @article{Pang2019LFIP,
