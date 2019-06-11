@@ -1,9 +1,9 @@
 import os.path
 
-home = os.path.expanduser("~")
+LFIP_ROOT = os.path.dirname(os.getcwd())
 # access to the VOC and COCO dataset
-VOCdir = os.path.join(home, "/home/ms/wtc/data/VOCdevkit")
-COCOdir = os.path.join(home, "/home/ms/wtc/data/coco")
+VOCdir = os.path.join(LFIP_ROOT, "data/VOCdevkit/")
+COCOdir = os.path.join(LFIP_ROOT, "data/coco/")
 
 # LFIP CONFIGS
 VOC_300 = {

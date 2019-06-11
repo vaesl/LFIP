@@ -13,86 +13,86 @@ a featurized image pyramid representation due to its memory and time complexity.
 efficiently produce featurized image pyramid in a single-stage detection framework.
 
 ## Installation
-- Clone this repository. This repository is mainly based on [ssd.pytorch](https://github.com/amdegroot/ssd.pytorch).
+- Clone this repository. This repository is mainly based on [ssd.pytorch](https://github.com/amdegroot/ssd.pytorch) and [RFBNet](https://github.com/ruinmessi/RFBNet).
 
 ```Shell
-LFIP_ROOT=/path/to/clone/LFIP
-git clone https://github.com/vaesl/LFIP $LFIP_ROOT
+    LFIP_ROOT=/path/to/clone/LFIP
+    git clone https://github.com/vaesl/LFIP $LFIP_ROOT
 ```
-
-- Install [PyTorch-0.3.1](http://pytorch.org/) by the following commands with Anaconda environment. 
-Note that he speed here is tested on the Pytorch 0.3.1, Python 3.5.6 and Cuda9.0.
-
-```Shell
-conda create -n LFIP python=3.5
-```
+- The code was tested on Ubuntu 16.04, with [Anaconda](https://www.anaconda.com/download) Python 3.5/6 and [PyTorch]((http://pytorch.org/)) v0.3.1. 
+NVIDIA GPUs are needed for testing. After install Anaconda, create a new conda environment, activate the environment and install pytorch0.3.1.
 
 ```Shell
-source activate LFIP
-```
-
-```Shell
-conda install pytorch=0.3.1 torchvision -c pytorch
+    conda create -n LFIP python=3.5
+    source activate LFIP
+    conda install pytorch=0.3.1 torchvision -c pytorch
 ```
 
 - Install opencv. 
 ```Shell
-conda install opencv
+    conda install opencv
 ```
 
-- Compile the COCOAPI and NMS tools:
+- Compile both [COCOAPI](https://github.com/cocodataset/cocoapi) and NMS:
 ```Shell
-./make.sh
+    cd $LFIP_ROOT/
+    ./make.sh
 ```
 
 ## Download
 To evaluate the performance reported in the paper, Pascal VOC and COCO dataset as well as our trained models need to be downloaded.
 
-### Pascal VOC Dataset
-##### Download VOC2007 trainval & test
+### VOC Dataset
+- Directly download the images and annotations from the [VOC website](http://host.robots.ox.ac.uk/pascal/VOC/) and put them into $LFIP_ROOT/data/VOCdevkit/.
+- Create the `VOCdevkit` folder and make the data(or create symlinks) folder like:
 
-```Shell
-# specify a directory for dataset to be downloaded into, else default is ~/data/
-sh data/scripts/VOC2007.sh # <directory>
-```
-
-##### Download VOC2012 trainval
-
-```Shell
-# specify a directory for dataset to be downloaded into, else default is ~/data/
-sh data/scripts/VOC2012.sh # <directory>
-```
+  ~~~
+  ${$LFIP_ROOT}
+  |-- data
+  `-- |-- VOCdevkit
+      `-- |-- VOC2007
+          |   |-- annotations
+          |   |-- ImageSets
+          |   |-- JPEGImages
+          |-- VOC2012
+          |   |-- annotations
+          |   |-- ImageSets
+          |   |-- JPEGImages
+          |-- results
+  ~~~
 
 ### COCO Dataset
-Download the MS COCO dataset to /path/to/coco from [official website](http://mscoco.org/), default is ~/data/COCO. It should have the following structure 
-```Shell
-$COCO/
-$COCO/cache/
-$COCO/annotations/
-$COCO/images/
-$COCO/images/train2014/
-$COCO/images/val2014/
-$COCO/images/test2015/
-```
+- Download the images and annotation files from coco website [coco website](http://cocodataset.org/#download). 
+- Place the data (or create symlinks) to make the data folder like:
+
+  ~~~
+  ${$LFIP_ROOT}
+  |-- data
+  `-- |-- coco
+      `-- |-- annotations
+          |   |-- instances_train2014.json
+          |   |-- instances_val2014.json
+          |   |-- image_info_test-dev2015.json
+          `-- images
+          |   |-- train2014
+          |   |-- val2014
+          |   |-- test2015
+          `-- cache
+  ~~~
 
 ### Trained Models
-
-Please access to [BaiduYun Driver](https://pan.baidu.com/s/1F0pqYmA8wJUED_jV8xmFNw) to obtain the trained models for 
-PASCAL VOC and COCO and put the weights into corresponding directory. Note that the extraction code is jay3.
-
+Please access to [BaiduYun Driver](https://pan.baidu.com/s/1F0pqYmA8wJUED_jV8xmFNw) to obtain our trained models for 
+PASCAL VOC and COCO and put the models into corresponding directory(e.g. '~/weights/COCO/LFIP_COCO_300/'). 
+Note that the access code is jay3.
 
 ## Evaluation
-To evaluate the performance reported in the CVPR paper:
+To check the performance reported in the paper:
 
 ```Shell
 python test_LFIP.py -d VOC -s 300 --trained_model /path/to/model/weights
 ```
 
-- Note:
-  * -d: choose datasets, VOC or COCO.
-  * -s: image size, 300 or 512.
-
-By default, it will directly output the mAP results on VOC2007 *test* or COCO *minival2014*. For COCO *test-dev* results, you can manually change the datasets in the `test_LFIP.py` file, then save the detection results and submitted to the server. 
+where '-d' denotes datasets, VOC or COCO and '-s' represents image size, 300 or 512.
 
 ## Citation
 Please cite our paper in your publications if it helps your research:
