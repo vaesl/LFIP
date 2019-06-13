@@ -81,9 +81,10 @@ To evaluate the performance reported in the paper, Pascal VOC and COCO dataset a
   ~~~
 
 ### Trained Models
-Please access to [BaiduYun Driver](https://pan.baidu.com/s/1F0pqYmA8wJUED_jV8xmFNw) to obtain our trained models for 
+Please access to [Google Driver](https://drive.google.com/drive/folders/1MSrUiGRYl9QVJgsjrTDtAAlSm7venRhl?usp=sharing) 
+or [BaiduYun Driver](https://pan.baidu.com/s/1F0pqYmA8wJUED_jV8xmFNw) to obtain our trained models for 
 PASCAL VOC and COCO and put the models into corresponding directory(e.g. '~/weights/COCO/LFIP_COCO_300/'). 
-Note that the access code is jay3.
+Note that the access code for the BaiduYun Driver is jay3 and Now we only release models with 300*300 input size. 
 
 ## Evaluation
 To check the performance reported in the paper:
