@@ -16,7 +16,6 @@ from data import AnnotationTransform, COCODetection, VOCDetection, BaseTransform
 
 from layers.functions import Detect, PriorBox
 from utils.nms_wrapper import nms
-from utils.timer import Timer
 
 
 parser = argparse.ArgumentParser(description='Testing Light-weight Featurized Image Pyramid Network')
@@ -53,7 +52,6 @@ def test_net(save_folder, net, detector, cuda, testset, transform, top_k=300, th
     num_classes = (21, 81)[args.dataset == 'COCO']
     all_boxes = [[[] for _ in range(num_images)] for _ in range(num_classes)]
 
-    _t = {'forward': Timer(), 'nms': Timer()}
     det_file = os.path.join(save_folder, 'detections.pkl')
 
     for i in range(num_images):
@@ -61,10 +59,8 @@ def test_net(save_folder, net, detector, cuda, testset, transform, top_k=300, th
         x = Variable(transform(img).unsqueeze(0), volatile=True)
         x = x.cuda() if cuda else x
 
-        _t['forward'].tic()
         out = net(x)
         boxes, scores = detector.forward(out, priors)
-        detect_time = _t['forward'].toc()
 
         boxes = boxes[0]
         scores = scores[0]
@@ -97,12 +93,6 @@ def test_net(save_folder, net, detector, cuda, testset, transform, top_k=300, th
                 for j in range(1, num_classes):
                     keep = np.where(all_boxes[j][i][:, -1] >= image_thresh)[0]
                     all_boxes[j][i] = all_boxes[j][i][keep, :]
-        nms_time = _t['nms'].toc()
-
-        if i % 20 == 0:
-            print('detection_time: {:d}/{:d} {:.3f}s {:.3f}s'.format(i + 1, num_images, detect_time, nms_time))
-            _t['forward'].clear()
-            _t['nms'].clear()
 
     with open(det_file, 'wb') as f:
         pickle.dump(all_boxes, f, protocol=2)
